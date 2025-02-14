@@ -93,6 +93,7 @@ body {
 
 .main-nav a:hover {
     color: #4a90e2;
+    transition: 0.5s;
 }
 
 /* Section principale */
