@@ -191,3 +191,51 @@ body {
 .external-link a:hover {
     text-decoration: underline;
 }
+
+/* Partie de contact */
+.contact-section {
+    padding: 20px;
+    text-align: center;
+}
+
+.contact-section h2 {
+    font-size: 2em;
+    color: #333;
+    margin-bottom: 30px;
+}
+
+.contact-member {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin: 20px auto;
+    max-width: 600px;
+    text-align: left;
+}
+
+.contact-member h3 {
+    font-size: 1.5em;
+    color: #4a90e2;
+    margin-bottom: 15px;
+}
+
+.contact-member p {
+    font-size: 1.1em;
+    color: #555;
+    margin: 10px 0;
+}
+
+.contact-member a {
+    color: #4a90e2;
+    text-decoration: none;
+}
+
+.contact-member a:hover {
+    text-decoration: underline;
+}
+
+.contact-member i {
+    margin-right: 10px;
+    color: #4a90e2;
+}
