@@ -44,3 +44,34 @@ document.getElementById("back-to-top").addEventListener("click", function() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
 });
 
+// Fonction pour passer à la diapositive suivante
+function nextSlide(member) {
+    const slides = document.getElementById(`${member}-slides`).querySelectorAll('.slide');
+    let activeIndex = 0;
+
+    slides.forEach((slide, index) => {
+        if (slide.classList.contains('active')) {
+            slide.classList.remove('active');
+            activeIndex = index;
+        }
+    });
+
+    const nextIndex = (activeIndex + 1) % slides.length;
+    slides[nextIndex].classList.add('active');
+}
+
+// Fonction pour revenir à la diapositive précédente
+function prevSlide(member) {
+    const slides = document.getElementById(`${member}-slides`).querySelectorAll('.slide');
+    let activeIndex = 0;
+
+    slides.forEach((slide, index) => {
+        if (slide.classList.contains('active')) {
+            slide.classList.remove('active');
+            activeIndex = index;
+        }
+    });
+
+    const prevIndex = (activeIndex - 1 + slides.length) % slides.length;
+    slides[prevIndex].classList.add('active');
+}
