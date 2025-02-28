@@ -393,14 +393,23 @@ body {
     margin-bottom: 30px;
 }
 
+/* Cadre blanc pour chaque carrousel */
 .carousel {
-    margin-bottom: 40px;
+    margin-bottom: 20px;
+    background-color: white; /* Fond blanc */
+    border-radius: 10px; /* Coins arrondis */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Ombre légère */
+    padding: 10px; /* Espace intérieur */
+    padding: 20px;
+    margin: 20px auto;
+    max-width: 600px;
 }
 
 .carousel h3 {
     font-size: 1.8em;
     color: #6a5acd;
     margin-bottom: 20px;
+    text-align: center; /* Centrer le titre */
 }
 
 .carousel-container {
@@ -450,7 +459,7 @@ body {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(0, 0, 0, 0);
     color: white;
     border: none;
     padding: 10px;
@@ -460,7 +469,7 @@ body {
 }
 
 .carousel-arrow:hover {
-    background-color: rgba(0, 0, 0, 0.8);
+    background-color: rgba(0, 0, 0, 0);
 }
 
 .left-arrow {
