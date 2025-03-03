@@ -75,3 +75,32 @@ function prevSlide(member) {
     const prevIndex = (activeIndex - 1 + slides.length) % slides.length;
     slides[prevIndex].classList.add('active');
 }
+
+document.getElementById("contactForm").addEventListener("submit", function(event) {
+    event.preventDefault(); // Empêche le rechargement de la page
+
+    const name = document.getElementById("name").value;
+    const email = document.getElementById("email").value;
+    const message = document.getElementById("message").value;
+
+    // Construire l'URL mailto pour ouvrir le client de messagerie
+    const mailtoLink = `mailto:tonemail@example.com?subject=Message de ${name}&body=${encodeURIComponent(message)}%0A%0ADe : ${name} (${email})`;
+
+    // Ouvrir le client de messagerie
+    window.location.href = mailtoLink;
+
+    // Afficher un message de confirmation
+    document.getElementById("formMessage").textContent = "Votre message a été envoyé avec succès !";
+});
+
+// Ajout de la gestion du menu burger
+document.addEventListener("DOMContentLoaded", function() {
+    const burgerMenu = document.getElementById("burger-menu");
+    const nav = document.getElementById("main-nav");
+
+    if (burgerMenu && nav) {
+        burgerMenu.addEventListener("click", function() {
+            nav.classList.toggle("active");
+        });
+    }
+});
