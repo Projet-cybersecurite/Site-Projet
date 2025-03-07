@@ -277,7 +277,7 @@ body {
 }
 
 image-section img {
-    max-width: 100%;
+    max-width: 10%;
     height: 100px;
     border-radius: 10px;
 }
