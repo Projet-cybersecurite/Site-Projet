@@ -106,6 +106,7 @@ body {
     text-align: center;
     position: relative;
     animation: fadeInDown 0.8s ease-out;
+    font-family: 'Lobster Two', cursive;
 }
 
 @keyframes fadeInDown {
