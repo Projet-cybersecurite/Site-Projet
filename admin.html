@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>  
+    <meta charset="utf-8">
+    <title>Admin – Projet Cybersécurité</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <header class="banner">
+        <h1>Panel Administrateur</h1>
+        <p>Accès réservé aux administrateurs.</p>
+    </header>
+
+    <section class="admin-section">
+        <h2>Bienvenue, Administrateur</h2>
+        <p>Vous avez accès à cette interface car vous êtes un administrateur.</p>
+        <button id="logoutBtn">Déconnexion</button>
+    </section>
+
+    <script>
+        async function checkAdminAccess() {
+            const token = localStorage.getItem("token");
+
+            if (!token) {
+                alert("Accès refusé. Veuillez vous connecter.");
+                window.location.href = "index.html";
+                return;
+            }
+
+            const response = await fetch("/api/check-admin", {
+                method: "GET",
+                headers: { "Authorization": `Bearer ${token}` }
+            });
+
+            const data = await response.json();
+            if (!data.isAdmin) {
+                alert("Accès refusé. Vous n'êtes pas administrateur.");
+                window.location.href = "index.html";
+            }
+        }
+
+        document.getElementById("logoutBtn").addEventListener("click", () => {
+            localStorage.removeItem("token");
+            window.location.href = "index.html";
+        });
+
+        checkAdminAccess();
+    </script>
+</body>
+</html>
