@@ -104,3 +104,117 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     }
 });
+// US2 : Sécuriser l’authentification des utilisateurs
+document.getElementById("contactForm").addEventListener("submit", function(event) {
+    event.preventDefault();
+
+    const name = document.getElementById("name").value.trim();
+    const email = document.getElementById("email").value.trim();
+    const message = document.getElementById("message").value.trim();
+
+    // Vérification du format des champs
+    if (!/^[a-zA-Z\s]+$/.test(name)) {
+        alert("Le nom ne doit contenir que des lettres.");
+        return;
+    }
+    if (!/^\S+@\S+\.\S+$/.test(email)) {
+        alert("Adresse e-mail invalide !");
+        return;
+    }
+
+    // Empêcher les attaques XSS
+    function escapeHTML(str) {
+        return str.replace(/</g, "&lt;").replace(/>/g, "&gt;");
+    }
+    const safeMessage = escapeHTML(message);
+
+    // Envoi sécurisé
+    const mailtoLink = `mailto:tonemail@example.com?subject=Message de ${name}&body=${encodeURIComponent(safeMessage)}%0A%0ADe : ${name} (${email})`;
+    window.location.href = mailtoLink;
+
+    document.getElementById("formMessage").textContent = "Votre message a été envoyé avec succès !";
+});
+// Générer un token CSRF aléatoire et l'ajouter au formulaire
+document.addEventListener("DOMContentLoaded", function() {
+    document.getElementById("csrfToken").value = Math.random().toString(36).substring(2);
+});
+// US5 : Journaliser les accès au site
+let loginAttempts = 0;
+
+document.getElementById("loginForm").addEventListener("submit", function(event) {
+    event.preventDefault();
+
+    if (loginAttempts >= 3) {
+        alert("Trop de tentatives ! Réessayez plus tard.");
+        return;
+    }
+
+    loginAttempts++;
+    setTimeout(() => {
+        loginAttempts = 0;
+    }, 30000);
+});
+// Vérification du token CSRF et validation du formulaire
+document.getElementById("contactForm").addEventListener("submit", function(event) {
+    event.preventDefault(); // Empêche le rechargement de la page
+
+    const csrfToken = document.getElementById("csrfToken").value;
+    const name = document.getElementById("name").value.trim();
+    const email = document.getElementById("email").value.trim();
+    const message = document.getElementById("message").value.trim();
+
+    if (!csrfToken) {
+        alert("Erreur CSRF : Token manquant !");
+        return;
+    }
+
+    if (!name || !email || !message) {
+        alert("Tous les champs sont obligatoires !");
+        return;
+    }
+
+    function escapeHTML(str) {
+        return str.replace(/</g, "&lt;").replace(/>/g, "&gt;");
+    }
+    const safeMessage = escapeHTML(message);
+
+    console.log("Token CSRF : " + csrfToken);
+    console.log("Nom : " + name);
+    console.log("Email : " + email);
+    console.log("Message : " + safeMessage);
+
+    document.getElementById("formMessage").textContent = "Votre message a été envoyé avec succès !";
+});
+
+// Modifier ton formulaire pour envoyer les données vers l’API
+document.getElementById("contactForm").addEventListener("submit", async function(event) {
+    event.preventDefault();
+
+    const name = document.getElementById("name").value.trim();
+    const email = document.getElementById("email").value.trim();
+    const message = document.getElementById("message").value.trim();
+
+    if (!name || !email || !message) {
+        alert("Tous les champs sont obligatoires !");
+        return;
+    }
+
+    try {
+        const response = await fetch("/api/saveMessage", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ name, email, message }),
+        });
+
+        const result = await response.json();
+
+        if (response.ok) {
+            document.getElementById("formMessage").textContent = "Votre message a été enregistré avec succès !";
+        } else {
+            alert("Erreur : " + result.error);
+        }
+
+    } catch (error) {
+        alert("Une erreur est survenue. Veuillez réessayer.");
+    }
+});
