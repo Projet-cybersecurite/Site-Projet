@@ -5,7 +5,13 @@ export default async function handler(req, res) {
     if (req.method !== 'POST') return res.status(405).json({ error: 'Méthode non autorisée' });
 
     const { email, password, role } = req.body;
-    
+    const csrfToken = req.headers['x-csrf-token'];
+    const csrfCookie = req.cookies.csrfToken;
+
+    if (!csrfToken || csrfToken !== csrfCookie) {
+        return res.status(403).json({ error: 'Échec de la validation CSRF.' });
+    }
+
     const passwordRegex = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{12,}$/;
     if (!passwordRegex.test(password)) {
         return res.status(400).json({ error: 'Mot de passe trop faible.' });
