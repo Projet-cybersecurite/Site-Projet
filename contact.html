@@ -117,6 +117,9 @@
                 <label for="message">Message :</label>
                 <textarea id="message" name="message" rows="4" required></textarea>
 
+                <!-- 🔒 Ajout du Token CSRF -->
+              <input type="hidden" id="csrfToken" name="csrfToken">
+
                 <button type="submit">Envoyer</button>
             </form>
             <p id="formMessage"></p>
