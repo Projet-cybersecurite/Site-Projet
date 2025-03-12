@@ -9,130 +9,173 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lobster+Two:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
-    <!-- Ajoute la bibliothèque d'icone -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>    
 
 <body>
     <button id="back-to-top" title="Retour en haut">↑</button>
-    <!-- Banniere avec dégradé -->
+    
+    <!-- Bannière avec dégradé -->
     <header class="banner">
         <div class="banner-content">
             <h1>Projet Cybersécurité</h1>
             <p>Découvrez nos compétences et réalisations en cybersécurité</p>
-            <!-- Icône de cadenas -->
             <i class="fas fa-lock icon-large"></i>
         </div>
     </header>
 
     <!-- Menu burger -->
-<div class="burger-menu" id="burger-menu">
-    <i class="fas fa-bars"></i>
-</div>
+    <div class="burger-menu" id="burger-menu">
+        <i class="fas fa-bars"></i>
+    </div>
 
-<!-- Navigation principale -->
-<nav class="main-nav" id="main-nav">
-    <ul>
-        <li><a href="index.html">Accueil</a></li>
-        <li><a href="cv.html">CV</a></li>
-        <li><a href="portfolio.html">Portfolio</a></li>
-        <li><a href="contact.html">Contact</a></li>
-    </ul>
-</nav>
+    <!-- Navigation principale -->
+    <nav class="main-nav" id="main-nav">
+        <ul>
+            <li><a href="index.html">Accueil</a></li>
+            <li><a href="cv.html">CV</a></li>
+            <li><a href="portfolio.html">Portfolio</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+    </nav>
 
-    
     <!-- Section de bienvenue -->
     <section class="welcome-section">
         <h2>Bienvenue sur notre site web !</h2>
         <p>Nous sommes ravis de vous présenter notre espace dédié à la mise en valeur de <span class="highlight">nos compétences</span>, expériences et réalisations professionnelles.</p>
     </section>
+
     <!-- Section Authentification -->
-<section class="auth-section">
-    <h2>Connexion / Inscription</h2>
-    <form id="authForm">
-        <label>Email :</label>
-        <input type="email" id="email" required>
-        
-        <label>Mot de passe :</label>
-        <input type="password" id="password" required>
+    <section class="auth-section">
+        <h2>Connexion / Inscription</h2>
+        <form id="authForm">
+            <label for="email">Email :</label>
+            <input type="email" id="email" required>
 
-        <button type="submit">Se connecter / S'inscrire</button>
-    </form>
-    <p id="authMessage"></p>
-</section>
+            <label for="password">Mot de passe :</label>
+            <input type="password" id="password" required>
 
-     <!-- test ne pas prendre en compte cette partie -->
-     <section class="image-section">
-        <img src="accueil.jpg">
+            <button type="button" id="loginBtn">Se connecter</button>
+            <button type="button" id="registerBtn">S'inscrire</button>
+        </form>
+        <p id="authMessage"></p>
+
+        <!-- Bouton de déconnexion -->
+        <button type="button" id="logoutBtn" style="display:none;">Déconnexion</button>
     </section>
-    
+
+    <!-- Section principale -->
     <section class="main-content">
-        <p>Ce site a été conçu pour vous offrir une vue d'ensemble complète de nos parcours, allant de nos CV détaillés à nos portfolios soigneusement élaborés. <br>Notre objectif est de vous donner un aperçu clair et précis de notre expertise et de notre passion pour notre domaine d'activité. <br>Chaque section de ce site est pensée pour vous guider à travers nos réalisations et nos projets marquants, vous permettant de découvrir les talents et les compétences uniques que nous apportons. <br>Merci de prendre le temps de visiter notre site. Nous espérons que vous trouverez les informations présentées ici utiles et inspirantes. N'hésitez pas à nous contacter pour toute question ou collaboration future.</p>
+        <p>Ce site a été conçu pour vous offrir une vue d'ensemble complète de nos parcours, allant de nos CV détaillés à nos portfolios soigneusement élaborés.</p>
     </section>
 
+    <!-- Pied de page -->
     <footer class="external-link">
-        <a href="https://www.aurlom.com/c-bts/cms/2661-bts-ciel.html"target="_blank">Accédez à notre programme de formation </a>
+        <a href="https://www.aurlom.com/c-bts/cms/2661-bts-ciel.html" target="_blank">Accédez à notre programme de formation</a>
     </footer>
-    <script src="script.js"></script>
+
+    <!-- Script pour gérer l'inscription, la connexion et la déconnexion -->
     <script>
-        document.getElementById("authForm").addEventListener("submit", async function(event) {
+        // ✅ Fonction pour récupérer un cookie spécifique
+        function getCookie(name) {
+            let cookieArr = document.cookie.split(";");
+            for (let i = 0; i < cookieArr.length; i++) {
+                let cookiePair = cookieArr[i].split("=");
+                if (name === cookiePair[0].trim()) {
+                    return cookiePair[1];
+                }
+            }
+            return null;
+        }
+
+        // ✅ Fonction pour récupérer le token CSRF
+        async function getCSRFToken() {
+            const response = await fetch("/api/csrf-token", { method: "GET", credentials: "include" });
+            const data = await response.json();
+            document.cookie = `csrfToken=${data.csrfToken}; Secure; SameSite=Strict; Path=/`;
+        }
+
+        // ✅ Vérification de la connexion utilisateur (affichage du bouton déconnexion)
+        function checkUserSession() {
+            const token = getCookie("token");
+            if (token) {
+                document.getElementById("logoutBtn").style.display = "block";
+            } else {
+                document.getElementById("logoutBtn").style.display = "none";
+            }
+        }
+
+        // ✅ Gestion de l'inscription
+        document.getElementById("registerBtn").addEventListener("click", async function(event) {
             event.preventDefault();
-        
+
             const email = document.getElementById("email").value;
             const password = document.getElementById("password").value;
-        
-            const response = await fetch("/api/login", {
+            const csrfToken = getCookie("csrfToken");
+
+            if (!email || !password) {
+                alert("Veuillez remplir tous les champs.");
+                return;
+            }
+
+            const response = await fetch("/api/register", {
                 method: "POST",
-                headers: { "Content-Type": "application/json" },
+                headers: { 
+                    "Content-Type": "application/json",
+                    "X-CSRF-Token": csrfToken 
+                },
+                credentials: "include",
                 body: JSON.stringify({ email, password })
             });
-        
+
             const data = await response.json();
             document.getElementById("authMessage").textContent = data.message || data.error;
-        
+
             if (response.ok) {
-                localStorage.setItem("user", email);
+                alert("Inscription réussie ! Vous pouvez maintenant vous connecter.");
+            }
+        });
+
+        // ✅ Gestion de la connexion
+        document.getElementById("loginBtn").addEventListener("click", async function(event) {
+            event.preventDefault();
+
+            const email = document.getElementById("email").value;
+            const password = document.getElementById("password").value;
+            const csrfToken = getCookie("csrfToken");
+
+            const response = await fetch("/api/login", {
+                method: "POST",
+                headers: { 
+                    "Content-Type": "application/json",
+                    "X-CSRF-Token": csrfToken
+                },
+                credentials: "include",
+                body: JSON.stringify({ email, password })
+            });
+
+            const data = await response.json();
+            document.getElementById("authMessage").textContent = data.message || data.error;
+
+            if (response.ok) {
+                alert("Connexion réussie !");
+                checkUserSession();
                 window.location.reload();
             }
         });
-        </script>        
-<script>
-    async function getCSRFToken() {
-        const response = await fetch("/api/csrf-token");
-        const data = await response.json();
-        localStorage.setItem("csrfToken", data.csrfToken);
-    }
-    
-    document.getElementById("authForm").addEventListener("submit", async function(event) {
-        event.preventDefault();
-    
-        const email = document.getElementById("email").value;
-        const password = document.getElementById("password").value;
-        const csrfToken = localStorage.getItem("csrfToken");
-    
-        const response = await fetch("/api/login", {
-            method: "POST",
-            headers: { 
-                "Content-Type": "application/json",
-                "X-CSRF-Token": csrfToken
-            },
-            body: JSON.stringify({ email, password })
-        });
-    
-        const data = await response.json();
-        document.getElementById("authMessage").textContent = data.message || data.error;
-    
-        if (response.ok) {
-            localStorage.setItem("token", data.token);
-            window.location.reload();
-        }
-    });
-    
-    // Charger le token CSRF au chargement de la page
-    getCSRFToken();
-    </script>
-    </body>
-    </html>    
-</body>
 
+        // ✅ Gestion de la déconnexion
+        document.getElementById("logoutBtn").addEventListener("click", function() {
+            document.cookie = "token=; Max-Age=0; Path=/; Secure; SameSite=Strict;";
+            alert("Déconnexion réussie !");
+            checkUserSession();
+            window.location.href = "index.html";
+        });
+
+        // Charger le token CSRF et vérifier la session utilisateur
+        getCSRFToken();
+        checkUserSession();
+    </script>
+
+</body>
 </html>
