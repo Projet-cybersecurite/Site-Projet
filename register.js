@@ -1,5 +1,6 @@
 import { supabase } from "../lib/supabase";
 import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
 
 export default async function handler(req, res) {
     if (req.method !== "POST") {
@@ -32,5 +33,8 @@ export default async function handler(req, res) {
         return res.status(500).json({ error: error.message });
     }
 
-    res.status(201).json({ message: "Utilisateur créé avec succès", data });
+    // Générer un token JWT
+    const token = jwt.sign({ email: email }, process.env.SECRET_KEY, { expiresIn: "1h" });
+
+    res.status(201).json({ message: "Utilisateur créé avec succès", token, data });
 }
