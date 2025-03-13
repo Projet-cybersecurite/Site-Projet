@@ -9,6 +9,7 @@ export default function handler(req, res) {
         const decoded = jwt.verify(token, process.env.SECRET_KEY);
         return res.status(200).json({ message: "Accès autorisé", user: decoded });
     } catch (error) {
-        return res.status(401).json({ error: "Token invalide" });
+        console.error("Erreur d'authentification :", error);
+        return res.status(401).json({ error: "Token invalide ou expiré" });
     }
 }
