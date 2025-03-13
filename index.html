@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="fr">
-
 <head>  
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -52,12 +51,64 @@
         <p>Ce site a été conçu pour vous offrir une vue d'ensemble complète de nos parcours, allant de nos CV détaillés à nos portfolios soigneusement élaborés.</p>
     </section>
 
+    <!-- 🔥 Formulaire Connexion & Inscription -->
+    <section class="auth-section">
+        <h2>Connexion / Inscription</h2>
+        <form id="authForm">
+            <input type="email" id="authEmail" placeholder="Email" required>
+            <input type="password" id="authPassword" placeholder="Mot de passe" required>
+            <button type="submit">Se connecter / S'inscrire</button>
+        </form>
+        <p id="authMessage"></p>
+    </section>
+
     <!-- Pied de page -->
     <footer class="external-link">
         <a href="https://www.aurlom.com/c-bts/cms/2661-bts-ciel.html" target="_blank">Accédez à notre programme de formation</a>
     </footer>
 
     <script src="script.js"></script>
+
+    <script>
+        // Gestion de la connexion et inscription automatique
+        document.getElementById("authForm").addEventListener("submit", async function(event) {
+            event.preventDefault();
+
+            const email = document.getElementById("authEmail").value;
+            const password = document.getElementById("authPassword").value;
+
+            // Vérifie si l'utilisateur existe déjà
+            const checkUser = await fetch("/api/login", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ email, password })
+            });
+
+            const userData = await checkUser.json();
+
+            if (checkUser.ok) {
+                // Connexion réussie
+                localStorage.setItem("token", userData.token);
+                document.getElementById("authMessage").textContent = "Connexion réussie !";
+                setTimeout(() => window.location.href = "protected.html", 1000);
+            } else {
+                // Si l'utilisateur n'existe pas, on l'inscrit
+                const registerUser = await fetch("/api/register", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ email, password })
+                });
+
+                const registerData = await registerUser.json();
+                document.getElementById("authMessage").textContent = registerData.message || registerData.error;
+
+                if (registerUser.ok) {
+                    localStorage.setItem("token", registerData.token);
+                    setTimeout(() => window.location.href = "protected.html", 1000);
+                }
+            }
+        });
+    </script>
 
 </body>
 </html>
