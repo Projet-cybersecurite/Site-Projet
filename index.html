@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="fr">
-
 <head>  
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -44,12 +43,35 @@
         <h2>Bienvenue sur notre site web !</h2>
         <p>Nous sommes ravis de vous présenter notre espace dédié à la mise en valeur de <span class="highlight">nos compétences</span>, expériences et réalisations professionnelles.</p>
         
-        <!-- Image d'accueil avec un conteneur pour le style -->
+        <!-- Image d'accueil -->
         <div class="image-container">
             <img src="accueil.jpg" alt="Image d'accueil" class="accueil-image">
         </div>
 
         <p>Ce site a été conçu pour vous offrir une vue d'ensemble complète de nos parcours, allant de nos CV détaillés à nos portfolios soigneusement élaborés.</p>
+    </section>
+
+    <!-- 🔥 Formulaire Connexion & Inscription -->
+    <section class="auth-section">
+        <h2>Connexion / Inscription</h2>
+
+        <!-- Formulaire d'inscription -->
+        <form id="registerForm">
+            <input type="email" id="registerEmail" placeholder="Email" required>
+            <input type="password" id="registerPassword" placeholder="Mot de passe" required>
+            <button type="submit">S'inscrire</button>
+        </form>
+        <p id="registerMessage"></p>
+
+        <!-- Formulaire de connexion -->
+        <form id="loginForm">
+            <input type="email" id="loginEmail" placeholder="Email" required>
+            <input type="password" id="loginPassword" placeholder="Mot de passe" required>
+            <button type="submit">Se connecter</button>
+        </form>
+        <p id="loginMessage"></p>
+
+        <button id="logoutButton" style="display:none;">Se déconnecter</button>
     </section>
 
     <!-- Pied de page -->
