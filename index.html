@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="fr">
-
 <head>  
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,184 +8,105 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lobster+Two:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
-    <!-- Ajoute la bibliothèque d'icone -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>    
 
 <body>
     <button id="back-to-top" title="Retour en haut">↑</button>
-    <!-- Banniere avec dégradé -->
+
+    <!-- Banniere -->
     <header class="banner">
         <div class="banner-content">
             <h1>Projet Cybersécurité</h1>
             <p>Découvrez nos compétences et réalisations en cybersécurité</p>
-            <!-- Icône de cadenas -->
             <i class="fas fa-lock icon-large"></i>
         </div>
     </header>
 
     <!-- Menu burger -->
-<div class="burger-menu" id="burger-menu">
-    <i class="fas fa-bars"></i>
-</div>
+    <div class="burger-menu" id="burger-menu">
+        <i class="fas fa-bars"></i>
+    </div>
 
-<!-- Navigation principale -->
-<nav class="main-nav" id="main-nav">
-    <ul>
-        <li><a href="index.html">Accueil</a></li>
-        <li><a href="cv.html">CV</a></li>
-        <li><a href="portfolio.html">Portfolio</a></li>
-        <li><a href="contact.html">Contact</a></li>
-    </ul>
-</nav>
+    <!-- Navigation -->
+    <nav class="main-nav" id="main-nav">
+        <ul>
+            <li><a href="index.html">Accueil</a></li>
+            <li><a href="cv.html">CV</a></li>
+            <li><a href="portfolio.html">Portfolio</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+    </nav>
 
-    
     <!-- Section de bienvenue -->
     <section class="welcome-section">
         <h2>Bienvenue sur notre site web !</h2>
-        <h3>Inscription</h3>
-    <form id="registerForm">
-        <input type="email" id="email" placeholder="Email" required>
-        <input type="password" id="password" placeholder="Mot de passe" required>
-        <button type="submit">S'inscrire</button>
-    </form>
-    <p id="registerMessage"></p>
-
-    <h2>Connexion</h2>
-    <form id="loginForm">
-        <input type="email" id="loginEmail" placeholder="Email" required>
-        <input type="password" id="loginPassword" placeholder="Mot de passe" required>
-        <button type="submit">Se connecter</button>
-    </form>
-    <p id="loginMessage"></p>
-
-    <script>
-        // Gestion de l'inscription
-        document.getElementById("registerForm").addEventListener("submit", async function (e) {
-            e.preventDefault();
-            const email = document.getElementById("email").value;
-            const password = document.getElementById("password").value;
-
-            const res = await fetch("/api/register", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ email, password }),
-            });
-
-            const data = await res.json();
-            document.getElementById("registerMessage").innerText = data.message || data.error;
-        });
-
-        // Gestion de la connexion
-        document.getElementById("loginForm").addEventListener("submit", async function (e) {
-            e.preventDefault();
-            const email = document.getElementById("loginEmail").value;
-            const password = document.getElementById("loginPassword").value;
-
-            const res = await fetch("/api/login", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ email, password }),
-            });
-
-            const data = await res.json();
-            if (res.ok) {
-                localStorage.setItem("token", data.token);
-                document.getElementById("loginMessage").innerText = "Connexion réussie !";
-            } else {
-                document.getElementById("loginMessage").innerText = data.error;
-            }
-        });
-    </script>
         <p>Nous sommes ravis de vous présenter notre espace dédié à la mise en valeur de <span class="highlight">nos compétences</span>, expériences et réalisations professionnelles.</p>
     </section>
-    <!-- Section Authentification -->
-<section class="auth-section">
-    <h2>Connexion / Inscription</h2>
-    <form id="authForm">
-        <label>Email :</label>
-        <input type="email" id="email" required>
-        
-        <label>Mot de passe :</label>
-        <input type="password" id="password" required>
 
-        <button type="submit">Se connecter / S'inscrire</button>
-    </form>
-    <p id="authMessage"></p>
-</section>
-
-     <!-- test ne pas prendre en compte cette partie -->
-     <section class="image-section">
-        <img src="accueil.jpg">
+    <!-- Formulaire unique d'authentification -->
+    <section class="auth-section">
+        <h2>Connexion / Inscription</h2>
+        <form id="authForm">
+            <input type="email" id="authEmail" placeholder="Email" required>
+            <input type="password" id="authPassword" placeholder="Mot de passe" required>
+            <button type="submit">Se connecter / S'inscrire</button>
+        </form>
+        <p id="authMessage"></p>
     </section>
-    
+
+    <!-- Section principale -->
     <section class="main-content">
-        <p>Ce site a été conçu pour vous offrir une vue d'ensemble complète de nos parcours, allant de nos CV détaillés à nos portfolios soigneusement élaborés. <br>Notre objectif est de vous donner un aperçu clair et précis de notre expertise et de notre passion pour notre domaine d'activité. <br>Chaque section de ce site est pensée pour vous guider à travers nos réalisations et nos projets marquants, vous permettant de découvrir les talents et les compétences uniques que nous apportons. <br>Merci de prendre le temps de visiter notre site. Nous espérons que vous trouverez les informations présentées ici utiles et inspirantes. N'hésitez pas à nous contacter pour toute question ou collaboration future.</p>
+        <p>Ce site a été conçu pour vous offrir une vue d'ensemble complète de nos parcours, allant de nos CV détaillés à nos portfolios soigneusement élaborés. <br>Notre objectif est de vous donner un aperçu clair et précis de notre expertise et de notre passion pour notre domaine d'activité.</p>
     </section>
 
+    <!-- Pied de page -->
     <footer class="external-link">
-        <a href="https://www.aurlom.com/c-bts/cms/2661-bts-ciel.html"target="_blank">Accédez à notre programme de formation </a>
+        <a href="https://www.aurlom.com/c-bts/cms/2661-bts-ciel.html" target="_blank">Accédez à notre programme de formation</a>
     </footer>
+
     <script src="script.js"></script>
+
     <script>
+        // Vérification et gestion de l'authentification
         document.getElementById("authForm").addEventListener("submit", async function(event) {
             event.preventDefault();
-        
-            const email = document.getElementById("email").value;
-            const password = document.getElementById("password").value;
-        
-            const response = await fetch("/api/login", {
+
+            const email = document.getElementById("authEmail").value;
+            const password = document.getElementById("authPassword").value;
+
+            // Vérifie si l'utilisateur existe déjà
+            const checkUser = await fetch("/api/login", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ email, password })
             });
-        
-            const data = await response.json();
-            document.getElementById("authMessage").textContent = data.message || data.error;
-        
-            if (response.ok) {
-                localStorage.setItem("user", email);
-                window.location.reload();
+
+            const userData = await checkUser.json();
+
+            if (checkUser.ok) {
+                // Connexion réussie
+                localStorage.setItem("token", userData.token);
+                document.getElementById("authMessage").textContent = "Connexion réussie !";
+                setTimeout(() => window.location.href = "protected.html", 1000);
+            } else {
+                // Si l'utilisateur n'existe pas, on l'inscrit
+                const registerUser = await fetch("/api/register", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ email, password })
+                });
+
+                const registerData = await registerUser.json();
+                document.getElementById("authMessage").textContent = registerData.message || registerData.error;
+
+                if (registerUser.ok) {
+                    localStorage.setItem("token", registerData.token);
+                    setTimeout(() => window.location.href = "protected.html", 1000);
+                }
             }
         });
-        </script>        
-<script>
-    async function getCSRFToken() {
-        const response = await fetch("/api/csrf-token");
-        const data = await response.json();
-        localStorage.setItem("csrfToken", data.csrfToken);
-    }
-    
-    document.getElementById("authForm").addEventListener("submit", async function(event) {
-        event.preventDefault();
-    
-        const email = document.getElementById("email").value;
-        const password = document.getElementById("password").value;
-        const csrfToken = localStorage.getItem("csrfToken");
-    
-        const response = await fetch("/api/login", {
-            method: "POST",
-            headers: { 
-                "Content-Type": "application/json",
-                "X-CSRF-Token": csrfToken
-            },
-            body: JSON.stringify({ email, password })
-        });
-    
-        const data = await response.json();
-        document.getElementById("authMessage").textContent = data.message || data.error;
-    
-        if (response.ok) {
-            localStorage.setItem("token", data.token);
-            window.location.reload();
-        }
-    });
-    
-    // Charger le token CSRF au chargement de la page
-    getCSRFToken();
     </script>
-    </body>
-    </html>    
-</body>
 
+</body>
 </html>
