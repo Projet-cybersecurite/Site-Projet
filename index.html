@@ -43,29 +43,12 @@
     <section class="welcome-section">
         <h2>Bienvenue sur notre site web !</h2>
         <p>Nous sommes ravis de vous présenter notre espace dédié à la mise en valeur de <span class="highlight">nos compétences</span>, expériences et réalisations professionnelles.</p>
-    </section>
+        
+        <!-- Image d'accueil avec un conteneur pour le style -->
+        <div class="image-container">
+            <img src="accueil.jpg" alt="Image d'accueil" class="accueil-image">
+        </div>
 
-    <!-- Section Authentification -->
-    <section class="auth-section">
-        <h2>Connexion / Inscription</h2>
-        <form id="authForm">
-            <label for="email">Email :</label>
-            <input type="email" id="email" required>
-
-            <label for="password">Mot de passe :</label>
-            <input type="password" id="password" required>
-
-            <button type="button" id="loginBtn">Se connecter</button>
-            <button type="button" id="registerBtn">S'inscrire</button>
-        </form>
-        <p id="authMessage"></p>
-
-        <!-- Bouton de déconnexion -->
-        <button type="button" id="logoutBtn" style="display:none;">Déconnexion</button>
-    </section>
-
-    <!-- Section principale -->
-    <section class="main-content">
         <p>Ce site a été conçu pour vous offrir une vue d'ensemble complète de nos parcours, allant de nos CV détaillés à nos portfolios soigneusement élaborés.</p>
     </section>
 
@@ -74,108 +57,7 @@
         <a href="https://www.aurlom.com/c-bts/cms/2661-bts-ciel.html" target="_blank">Accédez à notre programme de formation</a>
     </footer>
 
-    <!-- Script pour gérer l'inscription, la connexion et la déconnexion -->
-    <script>
-        // ✅ Fonction pour récupérer un cookie spécifique
-        function getCookie(name) {
-            let cookieArr = document.cookie.split(";");
-            for (let i = 0; i < cookieArr.length; i++) {
-                let cookiePair = cookieArr[i].split("=");
-                if (name === cookiePair[0].trim()) {
-                    return cookiePair[1];
-                }
-            }
-            return null;
-        }
-
-        // ✅ Fonction pour récupérer le token CSRF
-        async function getCSRFToken() {
-            const response = await fetch("/api/csrf-token", { method: "GET", credentials: "include" });
-            const data = await response.json();
-            document.cookie = `csrfToken=${data.csrfToken}; Secure; SameSite=Strict; Path=/`;
-        }
-
-        // ✅ Vérification de la connexion utilisateur (affichage du bouton déconnexion)
-        function checkUserSession() {
-            const token = getCookie("token");
-            if (token) {
-                document.getElementById("logoutBtn").style.display = "block";
-            } else {
-                document.getElementById("logoutBtn").style.display = "none";
-            }
-        }
-
-        // ✅ Gestion de l'inscription
-        document.getElementById("registerBtn").addEventListener("click", async function(event) {
-            event.preventDefault();
-
-            const email = document.getElementById("email").value;
-            const password = document.getElementById("password").value;
-            const csrfToken = getCookie("csrfToken");
-
-            if (!email || !password) {
-                alert("Veuillez remplir tous les champs.");
-                return;
-            }
-
-            const response = await fetch("/api/register", {
-                method: "POST",
-                headers: { 
-                    "Content-Type": "application/json",
-                    "X-CSRF-Token": csrfToken 
-                },
-                credentials: "include",
-                body: JSON.stringify({ email, password })
-            });
-
-            const data = await response.json();
-            document.getElementById("authMessage").textContent = data.message || data.error;
-
-            if (response.ok) {
-                alert("Inscription réussie ! Vous pouvez maintenant vous connecter.");
-            }
-        });
-
-        // ✅ Gestion de la connexion
-        document.getElementById("loginBtn").addEventListener("click", async function(event) {
-            event.preventDefault();
-
-            const email = document.getElementById("email").value;
-            const password = document.getElementById("password").value;
-            const csrfToken = getCookie("csrfToken");
-
-            const response = await fetch("/api/login", {
-                method: "POST",
-                headers: { 
-                    "Content-Type": "application/json",
-                    "X-CSRF-Token": csrfToken
-                },
-                credentials: "include",
-                body: JSON.stringify({ email, password })
-            });
-
-            const data = await response.json();
-            document.getElementById("authMessage").textContent = data.message || data.error;
-
-            if (response.ok) {
-                alert("Connexion réussie !");
-                checkUserSession();
-                window.location.reload();
-            }
-        });
-
-        // ✅ Gestion de la déconnexion
-        document.getElementById("logoutBtn").addEventListener("click", function() {
-            document.cookie = "token=; Max-Age=0; Path=/; Secure; SameSite=Strict;";
-            alert("Déconnexion réussie !");
-            checkUserSession();
-            window.location.href = "index.html";
-        });
-
-        // Charger le token CSRF et vérifier la session utilisateur
-        getCSRFToken();
-        checkUserSession();
-    </script>
+    <script src="script.js"></script>
 
 </body>
 </html>
