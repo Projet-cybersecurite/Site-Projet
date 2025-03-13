@@ -1,10 +1,689 @@
-{
-    "redirects": [
-      {
-        "source": "/(.*)",
-        "destination": "https://projetcybersecurite-aykisws-projects.vercel.app/$1",
-        "permanent": true
-      }
-    ]
-  }
-  
+
+/* Style général */
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+    font-family: Arial, sans-serif; 
+    color: #333;
+    transition: background-color 0.5s ease;
+}
+
+/* Correction de la navigation et du menu burger */
+.burger-menu {
+    display: none;
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    font-size: 2em;
+    cursor: pointer;
+    z-index: 1000;
+}
+
+@media (max-width: 768px) {
+    .burger-menu {
+        display: block;
+    }
+    
+    .main-nav {
+        display: none;
+        position: absolute;
+        top: 50px;
+        right: 0;
+        background-color: #333;
+        width: 100%;
+        text-align: center;
+        padding: 10px 0;
+    }
+
+    .main-nav.active {
+        display: block;
+    }
+
+    .main-nav ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .main-nav li {
+        margin: 10px 0;
+    }
+
+    .main-nav a {
+        color: white;
+        text-decoration: none;
+        font-size: 1.2em;
+        display: block;
+        padding: 10px;
+        transition: color 0.3s ease, background 0.3s ease;
+    }
+
+    .main-nav a:hover {
+        color: #4a90e2;
+        background: rgba(255, 255, 255, 0.1);
+    }
+}
+
+/* Navigation visible sur grand écran */
+@media (min-width: 769px) {
+    .main-nav {
+        display: block !important;
+        background-color: #333;
+        text-align: center;
+        padding: 10px 0;
+    }
+
+    .main-nav ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .main-nav li {
+        display: inline;
+        margin: 0 15px;
+    }
+
+    .main-nav a {
+        color: white;
+        text-decoration: none;
+        font-size: 1.2em;
+        transition: color 0.3s ease, transform 0.3s ease;
+    }
+
+    .main-nav a:hover {
+        color: #4a90e2;
+        transform: translateY(-3px);
+    }
+}
+
+/* Bannière avec dégradé */
+.banner {
+    background: linear-gradient(135deg, #6a5acd, #4a90e2);
+    color: white;
+    padding: 50px 20px;
+    text-align: center;
+    position: relative;
+    animation: fadeInDown 0.8s ease-out;
+    font-family: 'Lobster Two', cursive;
+}
+
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.banner h1 {
+    font-size: 3em;
+    margin: 0;
+}
+
+.banner p {
+    font-size: 1.5em;
+    margin: 10px 0 0;
+}
+
+/* Ajout du reste du fichier CSS original */
+/* Style général */
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+    font-family: Arial, sans-serif; 
+    color: #333;
+    transition: background-color 0.5s ease; /* Transition pour le changement de fond */
+}
+
+/* Bannière avec dégradé */
+.banner {
+    background: linear-gradient(135deg, #6a5acd, #4a90e2);
+    color: white;
+    padding: 50px 20px;
+    text-align: center;
+    position: relative;
+    animation: fadeInDown 0.8s ease-out;
+    
+}
+
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.banner h1 {
+    font-size: 3em;
+    margin: 0;
+}
+
+.banner p {
+    font-size: 1.5em;
+    margin: 10px 0 0;
+}
+
+/* Icônes */
+.icon-large {
+    font-size: 4em;
+    margin-top: 20px;
+    color: #ffdd57;
+    transition: transform 0.5s ease; /* Transition pour la rotation */
+}
+
+.icon-large:hover {
+    transform: rotate(360deg); /* Rotation au survol */
+}
+
+.icon-medium {
+    font-size: 2.5em;
+    margin: 20px 0;
+    color: #4a90e2;
+}
+
+.icon-small {
+    font-size: 1em;
+    margin-left: 10px;
+    color: #4a90e2;
+}
+
+/* Navigation */
+.main-nav {
+    text-align: center;
+    background-color: #333;
+    padding: 10px 0;
+}
+
+.main-nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.main-nav li {
+    display: inline;
+    margin: 0 15px;
+}
+
+.main-nav a {
+    color: white;
+    text-decoration: none;
+    font-size: 1.2em;
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.main-nav a:hover {
+    color: #4a90e2;
+    transform: translateY(-3px);
+}
+
+/* Section de bienvenue */
+.welcome-section {
+    text-align: center;
+    padding: 20px;
+    opacity: 0; /* Initialement invisible */
+    transform: translateY(20px); /* Décalage initial */
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.welcome-section h2 {
+    font-size: 2em;
+    color: #333;
+}
+
+.welcome-section p {
+    font-size: 1.2em;
+    color: #555;
+}
+
+.highlight {
+    color: #6a5acd;
+    font-weight: bold;
+}
+
+/* Section principale */
+.main-content {
+    padding: 20px;
+    text-align: center;
+    opacity: 0; /* Initialement invisible */
+    transform: translateY(20px); /* Décalage initial */
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.main-content p {
+    font-size: 1.1em;
+    color: #333;
+    line-height: 1.8;
+    margin-bottom: 20px;
+}
+
+/* Section image */
+.image-container {
+    text-align: center;
+    margin: 20px auto; /* Ajoute de l'espace autour de l'image */
+}
+
+.accueil-image {
+    max-width: 50%; /* L'image ne prendra pas plus de 80% de la largeur */
+    height: auto; /* Ajuste automatiquement la hauteur pour conserver les proportions */
+    border-radius: 10px; /* Coins arrondis pour un meilleur design */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Effet d'ombre */
+}
+
+
+/* Section des membres de l'équipe (dans Portfolio) */
+.team-section {
+    padding: 20px;
+    text-align: center;
+    opacity: 0; /* Initialement invisible */
+    transform: translateY(20px); /* Décalage initial */
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.team-section h2 {
+    font-size: 2em;
+    color: #333;
+    margin-bottom: 30px;
+}
+
+.team-member {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin: 20px auto;
+    max-width: 600px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.team-member:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.team-member h3 {
+    font-size: 1.5em;
+    color: #4a90e2;
+}
+
+.team-member p {
+    font-size: 1.1em;
+    color: #555;
+}
+
+.team-member img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;
+    margin-top: 15px;
+}
+
+/* Section CV */
+.cv-section {
+    padding: 20px;
+    text-align: left;
+    max-width: 800px;
+    margin: 0 auto;
+    opacity: 0; /* Initialement invisible */
+    transform: translateY(20px); /* Décalage initial */
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.cv-section h2 {
+    font-size: 2.5em;
+    color: #4a90e2;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.cv-intro {
+    font-size: 1.1em;
+    color: #555;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.cv-block {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin-bottom: 30px;
+}
+
+.cv-block h3 {
+    font-size: 1.8em;
+    color: #4a90e2;
+    margin-bottom: 15px;
+}
+
+.cv-block ul {
+    list-style-type: disc;
+    margin-left: 20px;
+}
+
+.cv-block li {
+    font-size: 1.1em;
+    color: black;
+    margin-bottom: 10px;
+}
+
+.cv-block a {
+    color: #4a90e2;
+    text-decoration: none;
+}
+
+.cv-block a:hover {
+    text-decoration: underline;
+}
+
+.cv-block i {
+    margin-right: 10px;
+    color: #4a90e2;
+}
+
+/* Partie de contact */
+.contact-section {
+    padding: 20px;
+    text-align: center;
+    opacity: 0; /* Initialement invisible */
+    transform: translateY(20px); /* Décalage initial */
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.contact-section h2 {
+    font-size: 2em;
+    color: #333;
+    margin-bottom: 30px;
+}
+
+.contact-member {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin: 20px auto;
+    max-width: 600px;
+    text-align: left;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.contact-member:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.contact-member h3 {
+    font-size: 1.5em;
+    color: #4a90e2;
+    margin-bottom: 15px;
+}
+
+.contact-member p {
+    font-size: 1.1em;
+    color: #555;
+    margin: 10px 0;
+}
+
+.contact-member a {
+    color: #4a90e2;
+    text-decoration: none;
+}
+
+.contact-member a:hover {
+    text-decoration: underline;
+}
+
+.contact-member i {
+    margin-right: 10px;
+    color: #4a90e2;
+}
+
+/* Footer avec lien externe */
+.external-link {
+    text-align: center;
+    padding: 20px;
+    background-color: #333;
+    color: white;
+}
+
+.external-link a {
+    color: #4a90e2;
+    text-decoration: none;
+    font-size: 1.2em;
+}
+
+.external-link a:hover {
+    text-decoration: underline;
+}
+
+/* Bouton Retour en haut */
+#back-to-top {
+    display: none;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #4a90e2;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    padding: 10px 15px;
+    font-size: 1.5em;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#back-to-top:hover {
+    background-color: #6a5acd;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .banner h1 {
+        font-size: 2em;
+    }
+
+    .banner p {
+        font-size: 1.2em;
+    }
+
+    .main-nav li {
+        display: block;
+        margin: 10px 0;
+    }
+
+    .team-member, .contact-member {
+        padding: 15px;
+        margin: 15px auto;
+    }
+
+    iframe {
+        width: 100%;
+        height: auto;
+    }
+}
+
+/* Galerie Portfolio avec carrousels */
+.portfolio-gallery {
+    padding: 20px;
+    text-align: center;
+}
+
+.portfolio-gallery h2 {
+    font-size: 2em;
+    color: #4a90e2;
+    margin-bottom: 30px;
+}
+
+/* Cadre blanc pour chaque carrousel */
+.carousel {
+    margin-bottom: 20px;
+    background-color: white; /* Fond blanc */
+    border-radius: 10px; /* Coins arrondis */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Ombre légère */
+    padding: 10px; /* Espace intérieur */
+    padding: 20px;
+    margin: 20px auto;
+    max-width: 600px;
+}
+
+.carousel h3 {
+    font-size: 1.8em;
+    color: #6a5acd;
+    margin-bottom: 20px;
+    text-align: center; /* Centrer le titre */
+}
+
+.carousel-container {
+    position: relative;
+    max-width: 800px;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+.slides {
+    display: flex;
+    transition: transform 0.5s ease;
+}
+
+.slide {
+    min-width: 100%;
+    box-sizing: border-box;
+    padding: 20px;
+    text-align: center;
+    display: none; /* Masqué par défaut */
+}
+
+.slide.active {
+    display: block; /* Affiche la diapositive active */
+}
+
+.slide h4 {
+    font-size: 1.5em;
+    color: #4a90e2;
+    margin-bottom: 20px;
+}
+
+.slide iframe {
+    width: 100%;
+    height: 315px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+.slide p {
+    font-size: 1em;
+    color: #555;
+}
+
+/* Flèches de navigation */
+.carousel-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0);
+    color: white;
+    border: none;
+    padding: 10px;
+    font-size: 2em;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.carousel-arrow:hover {
+    background-color: rgba(0, 0, 0, 0);
+}
+
+.left-arrow {
+    left: 10px;
+}
+
+.right-arrow {
+    right: 10px;
+}
+
+.contact-form {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin: 30px auto;
+    max-width: 600px;
+    text-align: center;
+}
+
+.contact-form h2 {
+    font-size: 1.8em;
+    color: #4a90e2;
+    margin-bottom: 15px;
+}
+
+.contact-form label {
+    display: block;
+    font-weight: bold;
+    margin: 10px 0 5px;
+}
+
+.contact-form input, .contact-form textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1em;
+}
+
+.contact-form button {
+    background-color: #4a90e2;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    font-size: 1.2em;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.contact-form button:hover {
+    background-color: #6a5acd;
+}
+
+iframe {
+    width: 100%;
+    height: 400px;
+    max-width: 600px;
+    margin: 0 auto;
+    display: block;
+}
+
+#formMessage {
+    margin-top: 10px;
+    font-size: 1em;
+    color: green;
+}
+.main-nav {
+    display: none;
+}
+
+.main-nav.active {
+    display: block;
+}
+
+@media (min-width: 768px) {
+    .main-nav {
+        display: block;
+    }
+    .burger-menu {
+        display: none;
+    }
+}
