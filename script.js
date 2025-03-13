@@ -98,6 +98,58 @@ function prevSlide(member) {
             activeIndex = index;
         }
     });
+    document.addEventListener("DOMContentLoaded", function() {
+    // Vérifier si un token est stocké
+    const token = localStorage.getItem("token");
+    if (token) {
+        document.getElementById("logoutButton").style.display = "block";
+    }
+
+    // Gestion de l'inscription
+    document.getElementById("registerForm").addEventListener("submit", async function (e) {
+        e.preventDefault();
+        const email = document.getElementById("registerEmail").value;
+        const password = document.getElementById("registerPassword").value;
+
+        const res = await fetch("/api/register", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ email, password }),
+        });
+
+        const data = await res.json();
+        document.getElementById("registerMessage").innerText = data.message || data.error;
+    });
+
+    // Gestion de la connexion
+    document.getElementById("loginForm").addEventListener("submit", async function (e) {
+        e.preventDefault();
+        const email = document.getElementById("loginEmail").value;
+        const password = document.getElementById("loginPassword").value;
+
+        const res = await fetch("/api/login", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ email, password }),
+        });
+
+        const data = await res.json();
+        if (res.ok) {
+            localStorage.setItem("token", data.token);
+            document.getElementById("loginMessage").innerText = "Connexion réussie !";
+            window.location.reload(); // Recharge la page après connexion
+        } else {
+            document.getElementById("loginMessage").innerText = data.error;
+        }
+    });
+
+    // Gestion de la déconnexion
+    document.getElementById("logoutButton").addEventListener("click", function () {
+        localStorage.removeItem("token");
+        window.location.reload();
+    });
+});
+
 
     const prevIndex = (activeIndex - 1 + slides.length) % slides.length;
     slides[prevIndex].classList.add('active');
