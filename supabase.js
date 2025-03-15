@@ -4,12 +4,11 @@ const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
 const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 
 if (!supabaseUrl || !supabaseAnonKey) {
-    console.error("❌ Erreur : Les variables d'environnement Supabase ne sont pas définies !");
-    throw new Error("⚠️ Vérifie tes variables d'environnement dans Vercel.");
+    throw new Error("⚠️ Erreur : Les variables d'environnement Supabase ne sont pas définies !");
 }
 
-// Affiche les valeurs des variables (juste pour le débogage, à supprimer en production)
-console.log("🔗 Supabase URL :", supabaseUrl);
-console.log("🔑 Supabase Anon Key :", supabaseAnonKey.substring(0, 5) + "****");
+// Debugging : Affichage des variables pour vérifier si elles sont bien récupérées
+console.log("Supabase URL:", supabaseUrl);
+console.log("Supabase Anon Key:", supabaseAnonKey);
 
 export const supabase = createClient(supabaseUrl, supabaseAnonKey);
