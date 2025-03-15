@@ -1,4 +1,4 @@
-const ADMIN_PASSWORD = "MonSuperMotDePasse123";  // 🔴 Change ce mot de passe !
+const ADMIN_PASSWORD = "Password123"; 
 
 // Vérifier si l'administrateur est déjà connecté
 window.onload = function () {
