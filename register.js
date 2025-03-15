@@ -1,6 +1,5 @@
 import { supabase } from "../lib/supabase";
 import bcrypt from "bcrypt";
-import jwt from "jsonwebtoken";
 
 export default async function handler(req, res) {
     if (req.method !== "POST") {
@@ -8,9 +7,15 @@ export default async function handler(req, res) {
     }
 
     const { email, password } = req.body;
+    const csrfToken = req.cookies.csrfToken;
+
+    // Vérification du token CSRF
+    if (!csrfToken || csrfToken !== req.headers["x-csrf-token"]) {
+        return res.status(403).json({ error: "Token CSRF invalide" });
+    }
 
     // Vérifier si l'utilisateur existe déjà
-    const { data: existingUser, error: userError } = await supabase
+    const { data: existingUser } = await supabase
         .from("users")
         .select("*")
         .eq("email", email)
@@ -24,7 +29,7 @@ export default async function handler(req, res) {
     const hashedPassword = await bcrypt.hash(password, 12);
 
     // Insérer l'utilisateur dans la table `users`
-    const { data, error } = await supabase
+    const { error } = await supabase
         .from("users")
         .insert([{ email, password: hashedPassword }]);
 
@@ -33,8 +38,5 @@ export default async function handler(req, res) {
         return res.status(500).json({ error: error.message });
     }
 
-    // Générer un token JWT
-    const token = jwt.sign({ email: email }, process.env.SECRET_KEY, { expiresIn: "1h" });
-
-    res.status(201).json({ message: "Utilisateur créé avec succès", token, data });
+    res.status(201).json({ message: "Utilisateur créé avec succès" });
 }
