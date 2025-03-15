@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html lang="fr">
 
-<head>  
+<head>
     <meta charset="utf-8">
     <title>Admin – Projet Cybersécurité</title>
     <link rel="stylesheet" href="style.css">
+    <script defer src="admin.js"></script>
 </head>
 
 <body>
@@ -13,9 +14,21 @@
         <p>Bienvenue sur l'espace d'administration.</p>
     </header>
 
-    <section class="admin-section">
-        <h2>Bienvenue</h2>
-        <p>Cet espace est accessible sans restriction.</p>
+    <!-- Formulaire de connexion -->
+    <div id="login-form" class="admin-login">
+        <h2>Connexion Administrateur</h2>
+        <label for="password">Mot de passe :</label>
+        <input type="password" id="password" placeholder="Entrez le mot de passe" required>
+        <button onclick="checkPassword()">Se connecter</button>
+        <p id="error-message" style="color: red; display: none;">Mot de passe incorrect.</p>
+    </div>
+
+    <!-- Contenu administrateur (caché par défaut) -->
+    <section id="admin-content" class="admin-section" style="display: none;">
+        <h2>Bienvenue, Administrateur</h2>
+        <p>Vous avez maintenant accès au panneau de gestion.</p>
+        <button onclick="logout()">Déconnexion</button>
     </section>
 </body>
+
 </html>
