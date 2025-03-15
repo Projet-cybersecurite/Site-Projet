@@ -7,17 +7,17 @@
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Lobster+Two:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lobster+Two:wght@700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>    
 
 <body>
     <a href="login.html">
-    <button>Connexion / Inscription</button>
-</a>
+        <button class="login-btn">Connexion / Inscription</button>
+    </a>
+
     <button id="back-to-top" title="Retour en haut">↑</button>
     
-    <!-- Bannière avec dégradé -->
     <header class="banner">
         <div class="banner-content">
             <h1>Projet Cybersécurité</h1>
@@ -26,13 +26,7 @@
         </div>
     </header>
 
-    <!-- Menu burger -->
-    <div class="burger-menu" id="burger-menu">
-        <i class="fas fa-bars"></i>
-    </div>
-
-    <!-- Navigation principale -->
-    <nav class="main-nav" id="main-nav">
+    <nav class="main-nav">
         <ul>
             <li><a href="index.html">Accueil</a></li>
             <li><a href="cv.html">CV</a></li>
@@ -41,92 +35,18 @@
         </ul>
     </nav>
 
-    <!-- Section de bienvenue -->
     <section class="welcome-section">
         <h2>Bienvenue sur notre site web !</h2>
         <p>Nous sommes ravis de vous présenter notre espace dédié à la mise en valeur de <span class="highlight">nos compétences</span>, expériences et réalisations professionnelles.</p>
-        
-        <!-- Image d'accueil avec un conteneur pour le style -->
         <div class="image-container">
             <img src="accueil.jpg" alt="Image d'accueil" class="accueil-image">
         </div>
-
     </section>
 
-    <section class="main-content">
-        <p> Ce site a été conçu pour vous offrir une vue d'ensemble complète de nos parcours, allant de nos CV détaillés à nos portfolios soigneusement élaborés. <br>
-            Notre objectif est de vous donner un aperçu clair et précis de notre expertise et de notre passion pour notre domaine d'activité. <br>
-            Chaque section de ce site est pensée pour vous guider à travers nos réalisations et nos projets marquants, vous permettant de découvrir les talents et les compétences uniques que nous apportons. <br>
-            Merci de prendre le temps de visiter notre site. Nous espérons que vous trouverez les informations présentées ici utiles et inspirantes. N'hésitez pas à nous contacter pour toute question ou collaboration future.
-        </p>
-    </section>
-
-    <!-- 🔥 Formulaire Connexion & Inscription -->
-    <section class="auth-section">
-    <h2>Connexion</h2>
-    <form id="loginForm">
-        <input type="email" id="loginEmail" placeholder="Email" required>
-        <input type="password" id="loginPassword" placeholder="Mot de passe" required>
-        <button type="submit">Se connecter</button>
-    </form>
-    <p id="loginMessage"></p>
-
-    <h2>Inscription</h2>
-    <form id="registerForm">
-        <input type="email" id="registerEmail" placeholder="Email" required>
-        <input type="password" id="registerPassword" placeholder="Mot de passe" required>
-        <button type="submit">S'inscrire</button>
-    </form>
-    <p id="registerMessage"></p>
-</section>
-
-    <!-- Pied de page -->
     <footer class="external-link">
         <a href="https://www.aurlom.com/c-bts/cms/2661-bts-ciel.html" target="_blank">Accédez à notre programme de formation</a>
     </footer>
 
     <script src="script.js"></script>
-
-    <script>
-        // Gestion de la connexion et inscription automatique
-        document.getElementById("authForm").addEventListener("submit", async function(event) {
-            event.preventDefault();
-
-            const email = document.getElementById("authEmail").value;
-            const password = document.getElementById("authPassword").value;
-
-            // Vérifie si l'utilisateur existe déjà
-            const checkUser = await fetch("/api/login", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ email, password })
-            });
-
-            const userData = await checkUser.json();
-
-            if (checkUser.ok) {
-                // Connexion réussie
-                localStorage.setItem("token", userData.token);
-                document.getElementById("authMessage").textContent = "Connexion réussie !";
-                setTimeout(() => window.location.href = "protected.html", 1000);
-            } else {
-                // Si l'utilisateur n'existe pas, on l'inscrit
-                const registerUser = await fetch("/api/register", {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ email, password })
-                });
-
-                const registerData = await registerUser.json();
-                document.getElementById("authMessage").textContent = registerData.message || registerData.error;
-
-                if (registerUser.ok) {
-                    localStorage.setItem("token", registerData.token);
-                    setTimeout(() => window.location.href = "protected.html", 1000);
-                }
-            }
-        });
-    </script>
-
 </body>
 </html>
