@@ -90,49 +90,56 @@ function prevSlide(member) {
     const prevIndex = (activeIndex - 1 + slides.length) % slides.length;
     slides[prevIndex].classList.add('active');
 }
-const API_URL = "https://projetcybersecurite-aykisws-projects.vercel.app"; 
-let isLoginMode = true;
+const API_URL = "http://localhost:3000"; // 🔥 Remplace par ton serveur local
 
-// Basculer entre connexion et inscription
-document.getElementById("toggle-btn").addEventListener("click", () => {
-    isLoginMode = !isLoginMode;
-    document.getElementById("form-title").textContent = isLoginMode ? "Connexion" : "Inscription";
-    document.querySelector("button[type='submit']").textContent = isLoginMode ? "Se connecter" : "S'inscrire";
-    document.getElementById("toggle-text").textContent = isLoginMode ? "Pas encore de compte ?" : "Déjà un compte ?";
-});
+document.addEventListener("DOMContentLoaded", function() {
+    const loginForm = document.getElementById("loginForm");
+    const registerForm = document.getElementById("registerForm");
 
-// Gestion du formulaire
-document.getElementById("auth-form").addEventListener("submit", async (event) => {
-    event.preventDefault();
-    
-    const email = document.getElementById("email").value;
-    const password = document.getElementById("password").value;
+    if (loginForm) {
+        loginForm.addEventListener("submit", async function(event) {
+            event.preventDefault();
+            const email = document.getElementById("loginEmail").value;
+            const password = document.getElementById("loginPassword").value;
 
-    const endpoint = isLoginMode ? "/login" : "/register";
-    try {
-        const response = await fetch(`${API_URL}${endpoint}`, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ email, password }),
-        });
+            const response = await fetch(`${API_URL}/login`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ email, password }),
+            });
 
-        const data = await response.json();
-        
-        if (response.ok) {
-            if (isLoginMode) {
+            const data = await response.json();
+
+            if (response.ok) {
                 localStorage.setItem("token", data.token);
                 alert("Connexion réussie !");
-                window.location.href = "admin.html"; // 🔒 Rediriger vers la page admin
+                window.location.href = "admin.html"; // Redirige vers l'admin
             } else {
-                alert("Inscription réussie ! Connectez-vous.");
+                alert(data.error);
             }
-        } else {
-            document.getElementById("error-message").textContent = data.error;
-            document.getElementById("error-message").style.display = "block";
-        }
-    } catch (error) {
-        console.error("Erreur lors de la requête :", error);
-        document.getElementById("error-message").textContent = "Problème de connexion au serveur.";
-        document.getElementById("error-message").style.display = "block";
+        });
+    }
+
+    if (registerForm) {
+        registerForm.addEventListener("submit", async function(event) {
+            event.preventDefault();
+            const email = document.getElementById("registerEmail").value;
+            const password = document.getElementById("registerPassword").value;
+
+            const response = await fetch(`${API_URL}/register`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ email, password }),
+            });
+
+            const data = await response.json();
+
+            if (response.ok) {
+                alert("Inscription réussie ! Connecte-toi.");
+            } else {
+                alert(data.error);
+            }
+        });
     }
 });
+
