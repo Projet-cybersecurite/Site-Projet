@@ -810,3 +810,17 @@ button {
 button:hover {
     background: #4a90e2;
 }
+button {
+    background-color: #6a5acd;
+    color: white;
+    padding: 10px 20px;
+    font-size: 1.2em;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+button:hover {
+    background-color: #4a90e2;
+}
