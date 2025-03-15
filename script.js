@@ -90,7 +90,7 @@ function prevSlide(member) {
     const prevIndex = (activeIndex - 1 + slides.length) % slides.length;
     slides[prevIndex].classList.add('active');
 }
-const API_URL = "https://ton-projet.vercel.app/api"; // 🔥 Remplace par ton URL Vercel
+const API_URL = "https://projetcybersecurite-aykisws-projects.vercel.app"; 
 let isLoginMode = true;
 
 // Basculer entre connexion et inscription
