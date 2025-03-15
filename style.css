@@ -732,4 +732,37 @@ iframe {
     font-size: 1em;
     font-weight: bold;
 }
+/* Appliquer ces styles uniquement si la page a la classe "admin-page" */
+.admin-page {
+    background: #f4f4f4;
+    text-align: center;
+}
 
+/* BANNIÈRE UNIQUEMENT POUR ADMIN */
+.admin-page .banner {
+    background: linear-gradient(135deg, #6a5acd, #4a90e2);
+    color: white;
+    padding: 50px 20px;
+    text-align: center;
+}
+
+/* FORMULAIRE ADMIN SEULEMENT */
+.admin-page .admin-login {
+    background: white;
+    max-width: 400px;
+    margin: 50px auto;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* SECTION ADMIN UNIQUEMENT */
+.admin-page .admin-section {
+    display: none;
+    background: white;
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
