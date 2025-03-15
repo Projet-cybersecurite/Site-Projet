@@ -1,29 +1,30 @@
 import { supabase } from "../lib/supabase";
-import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
 export default async function handler(req, res) {
     if (req.method !== "POST") return res.status(405).json({ error: "Méthode non autorisée" });
 
     const { email, password } = req.body;
+    const csrfToken = req.cookies.csrfToken;
 
-    // Vérifier si l'utilisateur existe
-    const { data: user, error } = await supabase
-        .from("users")
-        .select("*")
-        .eq("email", email)
-        .single();
-
-    if (!user || error) {
-        return res.status(401).json({ error: "Utilisateur non trouvé ou erreur interne." });
+    // Vérification du token CSRF
+    if (!csrfToken || csrfToken !== req.headers["x-csrf-token"]) {
+        return res.status(403).json({ error: "Token CSRF invalide" });
     }
 
-    // Vérifier le mot de passe
-    const isMatch = await bcrypt.compare(password, user.password);
-    if (!isMatch) return res.status(401).json({ error: "Mot de passe incorrect" });
+    // Vérification des variables d'environnement
+    if (!process.env.SECRET_KEY) {
+        console.error("Erreur: SECRET_KEY non défini !");
+        return res.status(500).json({ error: "Erreur serveur" });
+    }
 
-    // Générer un token JWT
+    // Vérification de l'utilisateur avec Supabase Auth
+    const { data: user, error } = await supabase.auth.signInWithPassword({ email, password });
+
+    if (error) return res.status(401).json({ error: "Utilisateur ou mot de passe incorrect" });
+
+    // Génération du token JWT
     const token = jwt.sign({ email: user.email }, process.env.SECRET_KEY, { expiresIn: "1h" });
 
-    res.status(200).json({ message: "Connexion réussie", token });
+    res.status(200).json({ token });
 }
