@@ -1,24 +1,21 @@
 <!DOCTYPE html>
 <html lang="fr">
-<head>  
+
+<head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Projet Cybersécurité</title>
+    <title>Site – Projet Cybersécurité</title>
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Lobster+Two:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lobster+Two:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-</head>    
+</head>
 
 <body>
-    <!-- Bouton Connexion / Inscription -->
-    <a href="login.html">
-        <button class="login-btn">Connexion / Inscription</button>
-    </a>
-
     <button id="back-to-top" title="Retour en haut">↑</button>
     
+    <!-- Bannière avec dégradé -->
     <header class="banner">
         <div class="banner-content">
             <h1>Projet Cybersécurité</h1>
@@ -27,7 +24,13 @@
         </div>
     </header>
 
-    <nav class="main-nav">
+    <!-- Menu burger -->
+    <div class="burger-menu" id="burger-menu">
+        <i class="fas fa-bars"></i>
+    </div>
+
+    <!-- Navigation principale -->
+    <nav class="main-nav" id="main-nav">
         <ul>
             <li><a href="index.html">Accueil</a></li>
             <li><a href="cv.html">CV</a></li>
@@ -36,47 +39,43 @@
         </ul>
     </nav>
 
+    <!-- Section de bienvenue -->
     <section class="welcome-section">
         <h2>Bienvenue sur notre site web !</h2>
+        <p>Nous sommes ravis de vous présenter notre espace dédié à la mise en valeur de <span class="highlight">nos compétences</span>, expériences et réalisations professionnelles.</p>
+        <!-- Image d'accueil -->
+        <div class="image-container">
+            <img src="accueil.jpg" alt="Image d'accueil" class="accueil-image">
+        </div>
+    </section>
+
+    <!-- Section descriptive -->
+    <section class="description-section">
         <p>
             Ce site a été conçu pour vous offrir une vue d'ensemble complète de nos parcours, allant de nos CV détaillés à nos portfolios soigneusement élaborés. <br>
             Notre objectif est de vous donner un aperçu clair et précis de notre expertise et de notre passion pour notre domaine d'activité. <br>
             Chaque section de ce site est pensée pour vous guider à travers nos réalisations et nos projets marquants, vous permettant de découvrir les talents et les compétences uniques que nous apportons. <br>
             Merci de prendre le temps de visiter notre site. Nous espérons que vous trouverez les informations présentées ici utiles et inspirantes. N'hésitez pas à nous contacter pour toute question ou collaboration future.
         </p>
-        <div class="image-container">
-            <img src="accueil.jpg" alt="Image d'accueil" class="accueil-image">
-        </div>
     </section>
 
-    <section class="project-section">
-        <h2>Projet Packet Tracer</h2>
-        <p>Nous avons réalisé un projet en Packet Tracer où nous avons dû paramétrer un routeur et un switch afin de les connecter ensemble via des VLANs et paramétrer des adresses IP pour permettre aux PC de chaque VLAN de se connecter.</p>
-        <div class="image-container">
-            <img src="Projet Packet Tracer.png" alt="Projet Packet Tracer" class="project-image">
-        </div>
-    </section>
+    <!-- Formulaire de connexion -->
+    <section class="auth-section">
+        <h2>Connexion</h2>
+        <form id="loginForm">
+            <input type="email" id="loginEmail" placeholder="Email" required>
+            <input type="password" id="loginPassword" placeholder="Mot de passe" required>
+            <button type="submit">Se connecter</button>
+        </form>
+        <p id="loginMessage"></p>
 
-    <section class="skills-section">
-        <h2>Compétences</h2>
-        <ul>
-            <li>📡 Réseaux et cybersécurité</li>
-            <li>💻 Programmation</li>
-            <li>🛠️ Configuration de systèmes</li>
-            <li>🔒 Sécurité informatique</li>
-        </ul>
-    </section>
-
-    <section class="cv-section">
-        <h2>CV</h2>
-        <p>Vous pouvez consulter notre CV pour en savoir plus sur nos compétences et expériences professionnelles.</p>
-        <a href="cv.html" class="cv-button">Voir le CV</a>
-    </section>
-
-    <section class="contact-section">
-        <h2>Contact</h2>
-        <p>Vous souhaitez nous contacter ? Accédez à la page de contact en cliquant sur le bouton ci-dessous :</p>
-        <a href="contact.html" class="contact-button">Contactez-nous</a>
+        <h2>Inscription</h2>
+        <form id="registerForm">
+            <input type="email" id="registerEmail" placeholder="Email" required>
+            <input type="password" id="registerPassword" placeholder="Mot de passe" required>
+            <button type="submit">S'inscrire</button>
+        </form>
+        <p id="registerMessage"></p>
     </section>
 
     <footer class="external-link">
@@ -85,4 +84,5 @@
 
     <script src="script.js"></script>
 </body>
+
 </html>
